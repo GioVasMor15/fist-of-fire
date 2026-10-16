@@ -12,13 +12,16 @@ size = Vector2(106, 33)
 [node name="Dummy" type="CharacterBody2D" unique_id=184403970]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=974780268]
+position = Vector2(1, -47)
 shape = SubResource("RectangleShape2D_nljr0")
 
 [node name="Icon" type="Sprite2D" parent="CollisionShape2D" unique_id=467687684]
+position = Vector2(-3.5527137e-15, -4.7683716e-07)
 scale = Vector2(0.734375, 0.734375)
 texture = ExtResource("1_rdt0c")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1736939601]
+position = Vector2(1, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1923267432]
 position = Vector2(-1, -16.5)
@@ -27,6 +30,7 @@ debug_color = Color(0.7011069, 0.07291553, 0.1673302, 0.41960785)
 
 [node name="EntityComponent" type="Node" parent="." unique_id=961284660 node_paths=PackedStringArray("entity_parent", "hitbox")]
 script = ExtResource("2_nljr0")
+entity_name = "Dummy"
 entity_parent = NodePath("..")
 hitbox = NodePath("../Hitbox")
 metadata/_custom_type_script = "uid://be4h6rqdtwtn1"
