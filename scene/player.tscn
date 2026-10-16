@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cetgfqjwt6tvj"]
+
+[ext_resource type="Script" uid="uid://d17eb8ifp7fb4" path="res://script/player.gd" id="1_hjaqi"]
+[ext_resource type="Texture2D" uid="uid://bnr7rtwhv3yyk" path="res://icon.svg" id="1_xo3ru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yc80"]
+size = Vector2(94, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpy8"]
+size = Vector2(44, 41)
+
+[node name="Player" type="CharacterBody2D" unique_id=2140269398]
+script = ExtResource("1_hjaqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=23362713]
+position = Vector2(-22, -54)
+shape = SubResource("RectangleShape2D_0yc80")
+
+[node name="Icon" type="Sprite2D" parent="CollisionShape2D" unique_id=1974282931]
+scale = Vector2(0.734375, 0.734375)
+texture = ExtResource("1_xo3ru")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1784024672]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=475265699]
+position = Vector2(50, -61)
+shape = SubResource("RectangleShape2D_wkpy8")
+debug_color = Color(0.65897655, 0.5156202, 1.92523e-07, 0.41960785)
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
