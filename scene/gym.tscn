@@ -58,6 +58,24 @@ shadow_color = Color(0, 0, 0, 0.13333334)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_r0ofq")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_sjin7")
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_l6a84"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkpy8"]
+bg_color = Color(0.93245524, 0.13125136, 0.9967622, 1)
+border_color = Color(0.96163505, 0.77946097, 1.92523e-06, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxkqy"]
+bg_color = Color(0.38048485, 0.583369, 1, 1)
+border_color = Color(0.11370679, 0.9266868, 0.7878522, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_0yc80"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_wkpy8")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lxkqy")
+
 [node name="Gym" type="Node2D" unique_id=690189478]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=886058296]
@@ -67,10 +85,10 @@ tile_set = SubResource("TileSet_0yc80")
 [node name="Player" parent="." unique_id=2140269398 instance=ExtResource("1_bx025")]
 position = Vector2(14, 143)
 
-[node name="Dummy" parent="." unique_id=184403970 instance=ExtResource("2_ewo1x")]
+[node name="Dummy" parent="." unique_id=184403970 groups=["enemy"] instance=ExtResource("2_ewo1x")]
 position = Vector2(309, 124)
 
-[node name="Dummy2" parent="." unique_id=1543574864 instance=ExtResource("2_ewo1x")]
+[node name="Dummy2" parent="." unique_id=1543574864 groups=["enemy"] instance=ExtResource("2_ewo1x")]
 position = Vector2(160, 168)
 
 [node name="CameraPath" type="Path2D" parent="." unique_id=1046060012 node_paths=PackedStringArray("player")]
@@ -125,6 +143,7 @@ show_percentage = false
 
 [node name="HealthDisplayComponent" type="Node" parent="HUD/EnemyPanel" unique_id=1757158797 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar")]
 script = ExtResource("5_1jncy")
+watch_group = &"enemy"
 health_panel = NodePath("..")
 icon = NodePath("../HBox/EnemyIcon")
 display_label = NodePath("../HBox/VBox/EnemyNameLabel")
@@ -136,17 +155,36 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PlayerPanel" unique_id=2104294508]
+[node name="HBox" type="HBoxContainer" parent="HUD/PlayerPanel" unique_id=2104294508]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerIcon" type="TextureRect" parent="HUD/PlayerPanel/HBox" unique_id=839053490]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_l6a84")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/PlayerPanel/HBox" unique_id=1461552148]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HUD/PlayerPanel/HBoxContainer" unique_id=839053490]
+[node name="PlayerNameLabel" type="Label" parent="HUD/PlayerPanel/HBox/VBox" unique_id=313389451]
 layout_mode = 2
+text = "PLAYER BUG"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PlayerPanel/HBoxContainer" unique_id=1461552148]
+[node name="PlayerHealthBar" type="ProgressBar" parent="HUD/PlayerPanel/HBox/VBox" unique_id=1692542591]
+custom_minimum_size = Vector2(50, 12)
 layout_mode = 2
+theme = SubResource("Theme_0yc80")
+value = 20.0
+show_percentage = false
 
-[node name="Label" type="Label" parent="HUD/PlayerPanel/HBoxContainer/VBoxContainer" unique_id=313389451]
-layout_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="HUD/PlayerPanel/HBoxContainer/VBoxContainer" unique_id=1692542591]
-layout_mode = 2
+[node name="HealthDisplayComponent" type="Node" parent="HUD/PlayerPanel" unique_id=2136744170 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar")]
+script = ExtResource("5_1jncy")
+watch_group = &"player"
+health_panel = NodePath("..")
+icon = NodePath("../HBox/PlayerIcon")
+display_label = NodePath("../HBox/VBox/PlayerNameLabel")
+health_bar = NodePath("../HBox/VBox/PlayerHealthBar")
+metadata/_custom_type_script = "uid://b3ojjnpn6gvo5"

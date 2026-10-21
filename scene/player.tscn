@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d17eb8ifp7fb4" path="res://script/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://bnr7rtwhv3yyk" path="res://icon.svg" id="1_xo3ru"]
+[ext_resource type="Script" uid="uid://be4h6rqdtwtn1" path="res://script/entity_component.gd" id="3_fvtld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yc80"]
 size = Vector2(94, 92)
@@ -9,7 +10,10 @@ size = Vector2(94, 92)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpy8"]
 size = Vector2(44, 41)
 
-[node name="Player" type="CharacterBody2D" unique_id=2140269398]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxkqy"]
+size = Vector2(61, 55)
+
+[node name="Player" type="CharacterBody2D" unique_id=2140269398 groups=["player"]]
 script = ExtResource("1_hjaqi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=23362713]
@@ -20,11 +24,27 @@ shape = SubResource("RectangleShape2D_0yc80")
 scale = Vector2(0.734375, 0.734375)
 texture = ExtResource("1_xo3ru")
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1784024672]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1784024672 groups=["player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=475265699]
 position = Vector2(50, -61)
 shape = SubResource("RectangleShape2D_wkpy8")
 debug_color = Color(0.65897655, 0.5156202, 1.92523e-07, 0.41960785)
+
+[node name="EntityComponent" type="Node" parent="." unique_id=1021816476 node_paths=PackedStringArray("entity_parent", "hitbox") groups=["player"]]
+script = ExtResource("3_fvtld")
+entity_name = "Player"
+entity_icon = ExtResource("1_xo3ru")
+entity_parent = NodePath("..")
+health = 200
+max_health = 200
+hitbox = NodePath("../Hitbox")
+metadata/_custom_type_script = "uid://be4h6rqdtwtn1"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=575704325]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1987909716]
+position = Vector2(-21.5, -54.5)
+shape = SubResource("RectangleShape2D_lxkqy")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
