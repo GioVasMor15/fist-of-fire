@@ -5,6 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://j143ml773uum" path="res://scene/dummy.tscn" id="2_ewo1x"]
 [ext_resource type="Script" uid="uid://dfedhd4ccsbue" path="res://script/camera_path_controller.gd" id="4_sjin7"]
 [ext_resource type="Script" uid="uid://b3ojjnpn6gvo5" path="res://script/health_display_component.gd" id="5_1jncy"]
+[ext_resource type="Texture2D" uid="uid://cq0l8l1cwtg7c" path="res://asset/cross.png" id="5_r0ofq"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_r0ofq"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjin7"]
 texture = ExtResource("1_xutm1")
@@ -14,11 +21,13 @@ texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_r0ofq")
 2:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_0yc80"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_sjin7")
 
 [sub_resource type="Curve2D" id="Curve2D_1jncy"]
@@ -28,6 +37,20 @@ _data = {
 point_count = 3
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sjin7"]
+
+[sub_resource type="Gradient" id="Gradient_7wdmr"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wkpy8"]
+gradient = SubResource("Gradient_7wdmr")
+width = 32
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_0yc80"]
+frames = 2
+frame_0/texture = ExtResource("5_r0ofq")
+frame_0/duration = 0.2
+frame_1/texture = SubResource("GradientTexture1D_wkpy8")
+frame_1/duration = 0.2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0ofq"]
 bg_color = Color(0.21248923, 0.32160303, 0.36011377, 1)
@@ -126,6 +149,15 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("PlaceholderTexture2D_sjin7")
 
+[node name="DeathCross" type="TextureRect" parent="HUD/EnemyPanel/HBox/EnemyIcon" unique_id=2040147474]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 1
+offset_right = 32.0
+offset_bottom = 32.0
+size_flags_vertical = 4
+texture = SubResource("AnimatedTexture_0yc80")
+
 [node name="VBox" type="VBoxContainer" parent="HUD/EnemyPanel/HBox" unique_id=2027353862]
 layout_mode = 2
 
@@ -141,13 +173,15 @@ theme = SubResource("Theme_sjin7")
 value = 50.0
 show_percentage = false
 
-[node name="HealthDisplayComponent" type="Node" parent="HUD/EnemyPanel" unique_id=1757158797 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar")]
+[node name="HealthDisplayComponent" type="Node" parent="HUD/EnemyPanel" unique_id=1757158797 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar", "death_cross")]
 script = ExtResource("5_1jncy")
 watch_group = &"enemy"
 health_panel = NodePath("..")
 icon = NodePath("../HBox/EnemyIcon")
 display_label = NodePath("../HBox/VBox/EnemyNameLabel")
 health_bar = NodePath("../HBox/VBox/EnemyHealthBar")
+death_cross = NodePath("../HBox/EnemyIcon/DeathCross")
+hide_after_delay = true
 metadata/_custom_type_script = "uid://b3ojjnpn6gvo5"
 
 [node name="PlayerPanel" type="PanelContainer" parent="HUD" unique_id=1704621176]
@@ -166,6 +200,15 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("PlaceholderTexture2D_l6a84")
 
+[node name="DeathCross" type="TextureRect" parent="HUD/PlayerPanel/HBox/PlayerIcon" unique_id=690394742]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+size_flags_vertical = 4
+texture = SubResource("AnimatedTexture_0yc80")
+
 [node name="VBox" type="VBoxContainer" parent="HUD/PlayerPanel/HBox" unique_id=1461552148]
 layout_mode = 2
 
@@ -180,11 +223,14 @@ theme = SubResource("Theme_0yc80")
 value = 20.0
 show_percentage = false
 
-[node name="HealthDisplayComponent" type="Node" parent="HUD/PlayerPanel" unique_id=2136744170 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar")]
+[node name="HealthDisplayComponent" type="Node" parent="HUD/PlayerPanel" unique_id=2136744170 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar", "death_cross")]
 script = ExtResource("5_1jncy")
 watch_group = &"player"
 health_panel = NodePath("..")
 icon = NodePath("../HBox/PlayerIcon")
 display_label = NodePath("../HBox/VBox/PlayerNameLabel")
 health_bar = NodePath("../HBox/VBox/PlayerHealthBar")
+death_cross = NodePath("../HBox/PlayerIcon/DeathCross")
+hide_on_ready = false
+refresh_on_ready = true
 metadata/_custom_type_script = "uid://b3ojjnpn6gvo5"

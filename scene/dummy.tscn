@@ -43,6 +43,9 @@ color = Color(0.6030161, 0.3629348, 0.0013255562, 0.98)
 alpha_curve = SubResource("CurveTexture_lxkqy")
 
 [node name="Dummy" type="CharacterBody2D" unique_id=184403970]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_mtq4m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=974780268]
@@ -56,6 +59,8 @@ texture = ExtResource("1_rdt0c")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1736939601]
 position = Vector2(1, -45)
+collision_layer = 4
+collision_mask = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1923267432]
 position = Vector2(-1, -16.5)
@@ -71,6 +76,8 @@ metadata/_custom_type_script = "uid://be4h6rqdtwtn1"
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=838743545]
 position = Vector2(88, -48)
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1317398828]
 shape = SubResource("CircleShape2D_0yc80")
@@ -83,7 +90,10 @@ explosiveness = 1.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_0yc80")
 
-[connection signal="entity_died" from="EntityComponent" to="." method="_on_entity_died"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=499365022]
+debug_enabled = true
+
 [connection signal="entity_died" from="EntityComponent" to="." method="_on__entity_died"]
+[connection signal="entity_died" from="EntityComponent" to="." method="_on_entity_died"]
 [connection signal="entity_died" from="EntityComponent" to="DeathParticles" method="restart"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

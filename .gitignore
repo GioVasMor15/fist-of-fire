@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
-.nomedia
+/android/
+addons/at-icons/
 
 # Godot-specific ignores
 .import/
