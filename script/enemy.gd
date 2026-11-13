@@ -7,6 +7,8 @@ var is_player_available: bool = false
 var target_acquired_elapsed: float = 0
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var sfx_hit: AudioStreamPlayer2D = $SFXHit
+
 
 func _ready() -> void:
 	await get_tree().physics_frame
@@ -19,7 +21,6 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if target_acquired_elapsed > 1:
-		print("oihdhvd")
 		nav_agent.target_position = player.global_position
 		target_acquired_elapsed = 0
 	
@@ -33,7 +34,6 @@ func _physics_process(delta: float) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)
 
-
 func _on_entity_died() -> void:
 	var tween: Tween = create_tween()
 	
@@ -44,3 +44,15 @@ func _on_entity_died() -> void:
 	await tween.finished
 	
 	queue_free()
+
+func _on_damage_taken() -> void:
+	hit_feedback()
+
+func hit_feedback() -> void:
+	sfx_hit.play()
+	print("oioioi")
+	var tween: Tween = create_tween()
+	tween.set_loops(3)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.2).from(Color.WHITE * 8)
+	tween.set_loops(1)
+	tween.tween_property(self, "scale:y", scale.y, 0.2)
