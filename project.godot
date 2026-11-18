@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Fist of fire"
-run/main_scene="uid://bcef4e7qgsa4y"
+run/main_scene="uid://hwy20jbsec88"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 EventBus="*uid://blirhp1cijmm5"
+Soundtrack="*uid://b33j64yo20uya"
 
 [display]
 

@@ -1,6 +1,7 @@
 extends Path2D
 
 signal stopped
+signal moved
 
 enum CameraState {STOP, MOVE}
 
@@ -45,3 +46,4 @@ func _on_horde_finished() -> void:
 	if stop_index > stop_positions.size():
 		printerr("No more camera stops!") # Camera chegou no fim
 	current_state = CameraState.MOVE
+	moved.emit()

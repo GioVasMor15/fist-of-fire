@@ -50,7 +50,6 @@ func _on_damage_taken() -> void:
 
 func hit_feedback() -> void:
 	sfx_hit.play()
-	print("oioioi")
 	var tween: Tween = create_tween()
 	tween.set_loops(3)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.2).from(Color.WHITE * 8)
