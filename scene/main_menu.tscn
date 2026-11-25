@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://hwy20jbsec88"]
 
-[ext_resource type="Script" uid="uid://dfeyqgqvjoan4" path="res://main_menu.gd" id="1_3er1b"]
+[ext_resource type="Script" uid="uid://dfeyqgqvjoan4" path="res://script/main_menu.gd" id="1_3er1b"]
+[ext_resource type="Resource" uid="uid://cqxggpt2awrnt" path="res://resource/ost_config-drums.tres" id="2_hxu56"]
 
 [node name="MainMenu" type="Control" unique_id=1176762417]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3er1b")
+soundtrack_config = ExtResource("2_hxu56")
 
 [node name="GameTitle" type="RichTextLabel" parent="." unique_id=1187840266]
 layout_mode = 1

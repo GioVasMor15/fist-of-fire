@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundtrackConfig" format=3 uid="uid://cqxggpt2awrnt"]
+
+[ext_resource type="Script" uid="uid://dcpqpmp3rh4ut" path="res://script/soundtrack_config.gd" id="1_a5pvi"]
+
+[resource]
+script = ExtResource("1_a5pvi")
+config_name = &"drums_only"
+bass_volume = -60.0
+melody_volume = -60.0
+metadata/_custom_type_script = "uid://dcpqpmp3rh4ut"

@@ -1,9 +1,23 @@
 [gd_scene format=3 uid="uid://b33j64yo20uya"]
 
-[ext_resource type="AudioStream" uid="uid://cjys4j3vh5mu7" path="res://asset/beat_em_up-theme.mp3" id="1_nr1y7"]
+[ext_resource type="AudioStream" uid="uid://ca5wdqpegwb3k" path="res://asset/ost-main_theme-bass.mp3" id="1_v8deh"]
+[ext_resource type="AudioStream" uid="uid://d1xx3tnuusq4g" path="res://asset/ost-main_theme-drums.mp3" id="2_4je1s"]
+[ext_resource type="AudioStream" uid="uid://ooadkucqcyqd" path="res://asset/ost-main_theme-melody.mp3" id="3_6tkju"]
+[ext_resource type="Script" uid="uid://63c2jq517ibe" path="res://script/soundtrack.gd" id="4_4je1s"]
 
-[node name="Soundtrack" type="AudioStreamPlayer2D" unique_id=640811467]
-stream = ExtResource("1_nr1y7")
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_1typ7"]
+stream_count = 3
+stream_0/stream = ExtResource("1_v8deh")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("2_4je1s")
+stream_1/volume = 0.0
+stream_2/stream = ExtResource("3_6tkju")
+stream_2/volume = 0.0
+
+[node name="Soundtrack" type="AudioStreamPlayer" unique_id=479674778]
+stream = SubResource("AudioStreamSynchronized_1typ7")
 autoplay = true
 bus = &"Soundtrack"
-parameters/looping = true
+script = ExtResource("4_4je1s")
+drums_index = 1
+melody_index = 2

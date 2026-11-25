@@ -1,5 +1,11 @@
 extends Control
 
+@export var soundtrack_config: SoundtrackConfig
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug"):
+		Soundtrack.change_config(soundtrack_config)
 
 func _ready() -> void:
 	AudioServer.set_bus_volume_linear(1, 1.0)
